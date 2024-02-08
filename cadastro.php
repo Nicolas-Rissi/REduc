@@ -1,20 +1,4 @@
-<?php
-require_once "Back-end/class/usersRequire.php";
 
-if (!isset($_SESSION)) session_start();
-
-if (isset($_SESSION['id_usuario'])) {
-    header('location:index.php');
-    die();
-}
-
-$msgErro = "";
-
-if (isset($_GET['erro'])) {
-    $msgErro = "NOME DE USUÁRIO, EMAIL OU CPF JÁ CADASTRADOS";
-}
-
-?>
 
 <!doctype html>
 <html lang="pt-br">
