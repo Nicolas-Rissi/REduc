@@ -2,7 +2,8 @@
 SQLyog Enterprise - MySQL GUI v8.12 
 MySQL - 5.5.5-10.4.32-MariaDB : Database - reduc
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -454,7 +455,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `tr_apagarPa` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `tr_apagarPa` BEFORE DELETE ON `pa` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'reduc'@'%' */ /*!50003 TRIGGER `tr_apagarPa` BEFORE DELETE ON `pa` FOR EACH ROW BEGIN
 	IF(EXISTS(SELECT * FROM avaliacao_pa WHERE id_pa = old.id_pa)) THEN
 		DELETE FROM avaliacao_pa WHERE id_pa = old.id_pa;
 	END IF;
@@ -473,7 +474,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `tr_apagarRecurso` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `tr_apagarRecurso` BEFORE DELETE ON `recursos` FOR EACH ROW begin
+/*!50003 CREATE */ /*!50017 DEFINER = 'reduc'@'%' */ /*!50003 TRIGGER `tr_apagarRecurso` BEFORE DELETE ON `recursos` FOR EACH ROW begin
 	if(exists(select * from recurso_disciplina where id_recurso = old.id_recurso)) then
 		delete from recurso_disciplina where id_recurso = old.id_recurso;
 	end if;
@@ -508,7 +509,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `tr_banirUsuario` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `tr_banirUsuario` BEFORE DELETE ON `users` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'reduc'@'%' */ /*!50003 TRIGGER `tr_banirUsuario` BEFORE DELETE ON `users` FOR EACH ROW BEGIN
 	IF(EXISTS(SELECT * FROM recursos WHERE id_usuario = old.id_usuario)) THEN
 		DELETE FROM recursos WHERE id_usuario = old.id_usuario;
 	END IF;
@@ -555,7 +556,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `buscarRecursosNaoPostados`()
+/*!50003 CREATE DEFINER=`reduc`@`%` PROCEDURE `buscarRecursosNaoPostados`()
 BEGIN
 	SELECT r.id_recurso "codigo", r.descricao, r.titulo, r.datacadastro "cadastro", u.nome "usuario"
 	FROM recursos r INNER JOIN users u
@@ -570,7 +571,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_adicionarComentario`(in codRecurso int, codUsuario int, comentario varchar(480))
+/*!50003 CREATE DEFINER=`reduc`@`%` PROCEDURE `proc_adicionarComentario`(in codRecurso int, codUsuario int, comentario varchar(480))
 begin
 	insert into comentarios_recursos (id_usuario, id_recurso, descritivo, datacomentario)
 	values	(codUsuario, codRecurso, comentario, current_date);
@@ -583,7 +584,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_AdicionarRedeSocial`(IN xid_usuario INT, xid_redesocial INT, link_redesocial VARCHAR(255))
+/*!50003 CREATE DEFINER=`reduc`@`%` PROCEDURE `proc_AdicionarRedeSocial`(IN xid_usuario INT, xid_redesocial INT, link_redesocial VARCHAR(255))
 BEGIN
 	INSERT INTO user_redesocial (id_redesocial, id_usuario, link_rede)
 	VALUES (xid_redesocial, xid_usuario, link_redesocial);
@@ -596,7 +597,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_apresentacaoPa`(IN codPa INT, codUsuario INT)
+/*!50003 CREATE DEFINER=`reduc`@`%` PROCEDURE `proc_apresentacaoPa`(IN codPa INT, codUsuario INT)
 BEGIN
 	IF(EXISTS(SELECT * FROM pa WHERE id_pa = codPa)) THEN
 		IF(codUsuario <> 0) THEN
@@ -626,7 +627,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_apresentacaoRecurso`(in codRecurso int, codUsuario int)
+/*!50003 CREATE DEFINER=`reduc`@`%` PROCEDURE `proc_apresentacaoRecurso`(in codRecurso int, codUsuario int)
 begin
 	if(exists(select * from recursos where recursos.id_recurso = codRecurso)) then
 		if(codUsuario <> 0) then
@@ -658,7 +659,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_aprovarUsuario`(in codUsuario int)
+/*!50003 CREATE DEFINER=`reduc`@`%` PROCEDURE `proc_aprovarUsuario`(in codUsuario int)
 BEGIN
 	update users set status = 1
 	where id_usuario = codUsuario;
@@ -671,7 +672,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_AtivarRecursoUsuario`(IN id_usuarioA INT, id_recursoA INT)
+/*!50003 CREATE DEFINER=`reduc`@`%` PROCEDURE `proc_AtivarRecursoUsuario`(IN id_usuarioA INT, id_recursoA INT)
 BEGIN
 	IF (id_usuarioA = (SELECT id_usuario FROM recursos WHERE id_recurso = id_recursoA) OR EXISTS(SELECT id_usuario FROM users WHERE id_categoriaUsuario = 3 AND id_usuario = id_usuarioA)) THEN 
 		UPDATE recursos SET STATUS = 1 WHERE id_recurso = id_recursoA;
@@ -685,7 +686,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_ativar_recursos_adm`(IN codigo INT)
+/*!50003 CREATE DEFINER=`reduc`@`%` PROCEDURE `proc_ativar_recursos_adm`(IN codigo INT)
 BEGIN
 	update recursos set status = 1
 	where codigo = id_recurso;
@@ -698,7 +699,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_ativar_recurso_adm`(IN codigo INT)
+/*!50003 CREATE DEFINER=`reduc`@`%` PROCEDURE `proc_ativar_recurso_adm`(IN codigo INT)
 BEGIN
 	UPDATE recursos SET STATUS = 1
 	WHERE codigo = id_recurso;
@@ -711,7 +712,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_banirUsuario`(IN codUsuario INT)
+/*!50003 CREATE DEFINER=`reduc`@`%` PROCEDURE `proc_banirUsuario`(IN codUsuario INT)
 BEGIN
 	delete from users
 	where id_usuario = codUsuario;
@@ -724,7 +725,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_BuscarMeusRecursos`(in xid_usuario int)
+/*!50003 CREATE DEFINER=`reduc`@`%` PROCEDURE `proc_BuscarMeusRecursos`(in xid_usuario int)
 begin
 		SELECT r.id_recurso "codigo", r.titulo, r.img_recurso_path "img", IFNULL(AVG(ar.nota), 0) "nota", 0 "favorito"
 		FROM recursos r LEFT JOIN avaliacao_recurso ar
@@ -743,7 +744,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_BuscarMinhasPa`(IN xid_usuario INT)
+/*!50003 CREATE DEFINER=`reduc`@`%` PROCEDURE `proc_BuscarMinhasPa`(IN xid_usuario INT)
 BEGIN
 		SELECT p.id_pa "codigo", p.titulo, p.img_pa_path "img", IFNULL(AVG(ap.nota), 0) "nota"
 		FROM pa p LEFT JOIN avaliacao_pa ap
@@ -762,7 +763,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_BuscarNumeroRedeSociasUsuario`(IN xid_usuario INT)
+/*!50003 CREATE DEFINER=`reduc`@`%` PROCEDURE `proc_BuscarNumeroRedeSociasUsuario`(IN xid_usuario INT)
 BEGIN
 	SELECT (SELECT COUNT(id_redesocial) FROM redesocial) - (SELECT COUNT(id_usuario) FROM user_redesocial WHERE id_usuario = xid_usuario) "RedesDisponiveis";
 END */$$
@@ -774,7 +775,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_buscarPaNaoPostados`()
+/*!50003 CREATE DEFINER=`reduc`@`%` PROCEDURE `proc_buscarPaNaoPostados`()
 begin
 	select p.id_pa, p.titulo, p.descricao, DATE_FORMAT(p.datacadastro, "%d/%m/%Y") "cadastro", u.nomeUsuario "usuario"
 	from pa p inner join users u
@@ -789,7 +790,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_BuscarPerfilUsuario`(IN xid_usuario INT)
+/*!50003 CREATE DEFINER=`reduc`@`%` PROCEDURE `proc_BuscarPerfilUsuario`(IN xid_usuario INT)
 BEGIN
 	IF(EXISTS(SELECT * FROM users WHERE id_usuario = xid_usuario)) THEN
 		SELECT nomeUsuario, IFNULL(img_path, "img/imgUsers/foto-perfil.avif") "img_path", descricao
@@ -805,7 +806,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_BuscarQuatroRecursos`(IN codigo INT)
+/*!50003 CREATE DEFINER=`reduc`@`%` PROCEDURE `proc_BuscarQuatroRecursos`(IN codigo INT)
 BEGIN
 	IF(codigo = 0) THEN
 		SELECT r.id_recurso "codigo", r.titulo, r.img_recurso_path "img", IFNULL(AVG(ar.nota), 0) "nota", 0 "favorito"
@@ -837,7 +838,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_buscarRecursosNaoPostados`()
+/*!50003 CREATE DEFINER=`reduc`@`%` PROCEDURE `proc_buscarRecursosNaoPostados`()
 BEGIN
 	SELECT r.id_recurso "codigo", r.descricao, r.titulo, DATE_FORMAT(r.datacadastro, "%d/%m/%Y") "cadastro", u.nomeUsuario "usuario"
 	FROM recursos r INNER JOIN users u
@@ -852,7 +853,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_BuscarRecursosSalvos`(in xid_usuario INT)
+/*!50003 CREATE DEFINER=`reduc`@`%` PROCEDURE `proc_BuscarRecursosSalvos`(in xid_usuario INT)
 BEGIN
 		SELECT r.id_recurso "codigo", r.titulo, r.img_recurso_path "img", IFNULL(AVG(ar.nota), 0) "nota", 1 "favorito"
 		FROM recursos r LEFT JOIN avaliacao_recurso ar
@@ -872,7 +873,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_BuscarRecursosUsuarioVisita`(in xid_usuario int, codigo int)
+/*!50003 CREATE DEFINER=`reduc`@`%` PROCEDURE `proc_BuscarRecursosUsuarioVisita`(in xid_usuario int, codigo int)
 begin
 	IF(codigo = 0) THEN
 		SELECT r.id_recurso "codigo", r.titulo, r.img_recurso_path "img", IFNULL(AVG(ar.nota), 0) "nota", 0 "favorito"
@@ -904,7 +905,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_BuscarRedeSocial`(IN xid_usuario INT)
+/*!50003 CREATE DEFINER=`reduc`@`%` PROCEDURE `proc_BuscarRedeSocial`(IN xid_usuario INT)
 BEGIN
 	IF(EXISTS(SELECT * FROM user_redesocial WHERE id_usuario = xid_usuario)) THEN
 		SELECT id_redesocial, link_rede 
@@ -921,7 +922,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_buscarTodosRecursos`(IN codigo INT)
+/*!50003 CREATE DEFINER=`reduc`@`%` PROCEDURE `proc_buscarTodosRecursos`(IN codigo INT)
 BEGIN
 	SELECT r.id_recurso "codigo", r.titulo, r.img_recurso_path "img", IFNULL(AVG(ar.nota), 0) "nota", IFNULL((
 		SELECT rs.id_fav 
@@ -942,7 +943,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_CadastroAluno`(IN nomeU VARCHAR(25), sobrenomeU VARCHAR(25), nomeUsuarioU VARCHAR(35), cpfU CHAR(11), datanascimentoU DATE, emailU VARCHAR(300), senhaU VARCHAR(255), id_perguntaU INT, resposta_segurancaU VARCHAR(30), id_instituicaoU INT, id_categoriaUsuarioU INT, statusU BOOLEAN)
+/*!50003 CREATE DEFINER=`reduc`@`%` PROCEDURE `proc_CadastroAluno`(IN nomeU VARCHAR(25), sobrenomeU VARCHAR(25), nomeUsuarioU VARCHAR(35), cpfU CHAR(11), datanascimentoU DATE, emailU VARCHAR(300), senhaU VARCHAR(255), id_perguntaU INT, resposta_segurancaU VARCHAR(30), id_instituicaoU INT, id_categoriaUsuarioU INT, statusU BOOLEAN)
 BEGIN
 	DECLARE username_exists INT;
 	DECLARE email_exists INT;
@@ -968,7 +969,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_CadastroProfessor`(IN nomeU VARCHAR(25), sobrenomeU VARCHAR(25), nomeUsuarioU VARCHAR(35), cpfU CHAR(11), datanascimentoU DATE, emailU VARCHAR(300), senhaU VARCHAR(255), link_lattesU TEXT, area_atuacaoU VARCHAR(25), id_perguntaU INT, resposta_segurancaU VARCHAR(30), id_instituicaoU INT, id_categoriaUsuarioU INT, statusU BOOLEAN)
+/*!50003 CREATE DEFINER=`reduc`@`%` PROCEDURE `proc_CadastroProfessor`(IN nomeU VARCHAR(25), sobrenomeU VARCHAR(25), nomeUsuarioU VARCHAR(35), cpfU CHAR(11), datanascimentoU DATE, emailU VARCHAR(300), senhaU VARCHAR(255), link_lattesU TEXT, area_atuacaoU VARCHAR(25), id_perguntaU INT, resposta_segurancaU VARCHAR(30), id_instituicaoU INT, id_categoriaUsuarioU INT, statusU BOOLEAN)
 BEGIN
 	INSERT INTO users (nome, sobrenome, nomeUsuario, cpf, datanascimento, email, senha, link_lattes, area_atuacao, id_pergunta, resposta_seguranca, id_instituicao, id_categoriaUsuario, datacadastro, STATUS, img_path)
 	VALUES	(nomeU, sobrenomeU, nomeUsuarioU, cpfU, datanascimentoU, emailU, senhaU, link_lattesU, area_atuacaoU, id_perguntaU, resposta_segurancaU, id_instituicaoU, id_categoriaUsuarioU, current_date, statusU, 'img/imgUsers/img_padrao_user.jpg');
@@ -981,7 +982,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_CadastroRecursoArtigo`(IN xtitulo VARCHAR(100), xdescricao VARCHAR(255), xartigo_path TEXT, xid_usuario INT, img_recurso_path TEXT, id_tiporecurso INT, id_ferramenta INT, OUT p_id_inserido INT)
+/*!50003 CREATE DEFINER=`reduc`@`%` PROCEDURE `proc_CadastroRecursoArtigo`(IN xtitulo VARCHAR(100), xdescricao VARCHAR(255), xartigo_path TEXT, xid_usuario INT, img_recurso_path TEXT, id_tiporecurso INT, id_ferramenta INT, OUT p_id_inserido INT)
 begin
 	IF(id_ferramenta = 0)THEN
 		SET id_ferramenta = NULL;
@@ -999,7 +1000,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_CadastroRecursoVideo`(IN xtitulo VARCHAR(100), xdescricao VARCHAR(255), xvideo_path TEXT, xid_usuario INT, img_recurso_path TEXT, id_tiporecurso INT, id_ferramenta INT, OUT p_id_inserido INT)
+/*!50003 CREATE DEFINER=`reduc`@`%` PROCEDURE `proc_CadastroRecursoVideo`(IN xtitulo VARCHAR(100), xdescricao VARCHAR(255), xvideo_path TEXT, xid_usuario INT, img_recurso_path TEXT, id_tiporecurso INT, id_ferramenta INT, OUT p_id_inserido INT)
 BEGIN
 	IF(id_ferramenta = 0)THEN
 		SET id_ferramenta = NULL;
@@ -1017,7 +1018,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_InativarRecurso`(IN id_usuarioA INT, id_recursoA INT)
+/*!50003 CREATE DEFINER=`reduc`@`%` PROCEDURE `proc_InativarRecurso`(IN id_usuarioA INT, id_recursoA INT)
 BEGIN
 	IF (id_usuarioA = (SELECT id_usuario FROM recursos WHERE id_recurso = id_recursoA) OR EXISTS(SELECT id_usuario FROM users WHERE id_categoriaUsuario = 3 AND id_usuario = id_usuarioA)) THEN 
 		UPDATE recursos SET STATUS = 0 WHERE id_recurso = id_recursoA;
@@ -1033,7 +1034,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_perfilVisita`(IN xid_usuario INT, xid_usuarioVisitante int)
+/*!50003 CREATE DEFINER=`reduc`@`%` PROCEDURE `proc_perfilVisita`(IN xid_usuario INT, xid_usuarioVisitante int)
 BEGIN
 	IF(EXISTS(SELECT * FROM users WHERE id_usuario = xid_usuario)) THEN
 		SELECT nomeUsuario, img_path, c.descritivo "categoria", descricao, IFNULL((select count(id_usuario) from seguir where id_userseguindo = xid_usuarioVisitante and id_userseguido = xid_usuario), 0) "segue"
@@ -1050,7 +1051,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_pesquisaRecursos`(IN codigo INT, pesquisa text)
+/*!50003 CREATE DEFINER=`reduc`@`%` PROCEDURE `proc_pesquisaRecursos`(IN codigo INT, pesquisa text)
 begin
 	SELECT r.id_recurso "codigo", r.titulo, r.img_recurso_path "img", IFNULL(AVG(ar.nota), 0) "nota", IFNULL((
 		SELECT rs.id_fav 
@@ -1071,7 +1072,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_pesquisarPa`(pesquisa TEXT)
+/*!50003 CREATE DEFINER=`reduc`@`%` PROCEDURE `proc_pesquisarPa`(pesquisa TEXT)
 begin
 	SELECT p.id_pa "codigo", p.titulo, p.img_pa_path "img", IFNULL(AVG(ap.nota), 0) "nota", ta.descritivo "tipo"
 	FROM pa p LEFT JOIN avaliacao_pa ap
@@ -1089,7 +1090,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_PuxarComentarios`(in codRecurso int)
+/*!50003 CREATE DEFINER=`reduc`@`%` PROCEDURE `proc_PuxarComentarios`(in codRecurso int)
 begin
 	SELECT id_comentario "codigo", cr.id_usuario "id_usuario", u.nomeUsuario, img_path "img", descritivo "comentario", DATE_FORMAT(datacomentario, "%d/%m/%Y") "data",
 	(select count(id_comentario) from comentarios_recursos where id_recurso = codRecurso) "nmrComentarios"
@@ -1105,7 +1106,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_PuxarComentariosDenunciados`()
+/*!50003 CREATE DEFINER=`reduc`@`%` PROCEDURE `proc_PuxarComentariosDenunciados`()
 begin
 	select cr.id_comentario, u.nomeUsuario, cr.descritivo, date_format(cr.datacomentario, "%d/%m/%Y") "datacomentario"
 	from comentarios_recursos cr inner join denuncia_comentario dc
@@ -1120,7 +1121,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_RedeSocialParaCadastrar`(IN xid_usuario INT)
+/*!50003 CREATE DEFINER=`reduc`@`%` PROCEDURE `proc_RedeSocialParaCadastrar`(IN xid_usuario INT)
 BEGIN
 	SELECT id_redesocial, descritivo
 	FROM redesocial
@@ -1134,7 +1135,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_reprovar_pa_adm`(IN codigo INT)
+/*!50003 CREATE DEFINER=`reduc`@`%` PROCEDURE `proc_reprovar_pa_adm`(IN codigo INT)
 BEGIN
 	DELETE FROM pa
 	WHERE id_pa = codigo;
@@ -1147,7 +1148,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_reprovar_recurso_adm`(IN codigo INT)
+/*!50003 CREATE DEFINER=`reduc`@`%` PROCEDURE `proc_reprovar_recurso_adm`(IN codigo INT)
 BEGIN
 	DELETE FROM recursos
 	WHERE id_recurso = codigo;
@@ -1160,7 +1161,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_Seguidores`(IN id_usuarioA INT)
+/*!50003 CREATE DEFINER=`reduc`@`%` PROCEDURE `proc_Seguidores`(IN id_usuarioA INT)
 BEGIN
 	IF (EXISTS(SELECT id_userseguido FROM seguir WHERE id_userseguido = id_usuarioA)) THEN
 		SELECT nomeUsuario "Seguidores"
@@ -1179,7 +1180,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_TodasPa`()
+/*!50003 CREATE DEFINER=`reduc`@`%` PROCEDURE `proc_TodasPa`()
 begin
 	SELECT p.id_pa "codigo", p.titulo, p.img_pa_path "img", IFNULL(AVG(ap.nota), 0) "nota", ta.descritivo "tipo"
 	FROM pa p LEFT JOIN avaliacao_pa ap
@@ -1197,7 +1198,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_TodosRecursos`(IN id_usuarioA INT)
+/*!50003 CREATE DEFINER=`reduc`@`%` PROCEDURE `proc_TodosRecursos`(IN id_usuarioA INT)
 BEGIN
 	IF (EXISTS(SELECT id_usuario FROM recursos WHERE id_usuario = id_usuarioA)) THEN 
 		SELECT r.id_recurso, titulo, descricao, datacadastro, (SELECT AVG(nota) FROM avaliacao_recurso WHERE id_recurso = r.id_recurso) "avaliacao"
@@ -1217,7 +1218,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_usuariosInativos`()
+/*!50003 CREATE DEFINER=`reduc`@`%` PROCEDURE `proc_usuariosInativos`()
 begin
 	select id_usuario "codigo", nome, sobrenome, nomeUsuario "usuario", link_lattes "lattes", id_categoriaUsuario "categoria", email, DATE_FORMAT(datacadastro, '%d/%m/%Y') "cadastro", img_path "img", i.descritivo "instituicao"
 	from users u inner join instituicao i
@@ -1232,7 +1233,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_VerificarUsuario`(IN xemail VARCHAR(255), xsenha VARCHAR(255))
+/*!50003 CREATE DEFINER=`reduc`@`%` PROCEDURE `proc_VerificarUsuario`(IN xemail VARCHAR(255), xsenha VARCHAR(255))
 BEGIN
 		IF(EXISTS(SELECT * FROM users WHERE email = xemail AND senha = xsenha)) THEN
 			SELECT id_usuario, nomeUsuario, id_categoriaUsuario, IFNULL(img_path, "img/imgUsers/foto-perfil.avif") "img_path", status FROM users
