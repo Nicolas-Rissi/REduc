@@ -1,5 +1,5 @@
 <?php
-require_once "Back-end/class/usersRequire.php";
+//require_once "Back-end/class/usersRequire.php";
 
 if (!isset($_SESSION)) session_start();
 
