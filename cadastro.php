@@ -1,13 +1,13 @@
 <?php
-// require_once "Back-end/class/usersRequire.php";
-/*
+require_once "Back-end/class/usersRequire.php";
+
 if (!isset($_SESSION)) session_start();
 
 if (isset($_SESSION['id_usuario'])) {
     header('location:index.php');
     die();
 }
-*/
+
 $msgErro = "";
 
 if (isset($_GET['erro'])) {
@@ -139,8 +139,6 @@ if (isset($_POST['nome'])) {
                     <select class="form-select" name="instituicao" id="instituicao">
                         <option value='0' selected>Qual a sua instituição</option>
                         <?php
-                        require_once 'Back-end/class/conexao/Conexao.class.php';
-                        require_once 'Back-end/class/users/Instituicao.class.php';
                         $instituicao = new Instituicao();
                         $retorno = $instituicao->BuscarTodasInstituicoes();
                         if (is_array($retorno)) {
@@ -172,8 +170,6 @@ if (isset($_POST['nome'])) {
                     <select class='form-select' name="pergunta" id="pergunta">
                         <option value='0' selected>Escolha a pergunta de segurança</option>
                         <?php
-                        require_once 'Back-end/class/conexao/Conexao.class.php';
-                        require_once 'Back-end/class/users/Pergunta.class.php';
                         $pergunta = new Pergunta();
                         $retorno = $pergunta->BuscarTodasPerguntas();
                         if (is_array($retorno)) {
