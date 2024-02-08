@@ -14,7 +14,7 @@ if (isset($_GET['erro'])) {
     $msgErro = "NOME DE USUÁRIO, EMAIL OU CPF JÁ CADASTRADOS";
 }
 
-if (isset($_POST)) {
+if (isset($_POST['nome'])) {
     $nome = $_POST['nome'];
     $sobrenome = $_POST['sobrenome'];
     $nomeUsuario = $_POST['username'];
