@@ -8,11 +8,11 @@ if (!$_GET["id_recurso"]) {
     require_once "Back-end/class/conexao/Conexao.class.php";
     require_once "Back-end/class/recursos/Recursos.class.php";
     require_once "Back-end/class/recursos/Comentarios.class.php";
-    require_once 'Back-end/class/Disciplinas.class.php';
-    require_once 'Back-end/class/Ferramentas.class.php';
-    require_once 'Back-end/class/Cursos.class.php';
-    require_once 'Back-end/class/CategoriaRecurso.class.php';
-    require_once 'Back-end/class/AreaConhecimento.class.php';
+    require_once 'Back-end/class/recursos/Disciplinas.class.php';
+    require_once 'Back-end/class/recursos/Ferramentas.class.php';
+    require_once 'Back-end/class/recursos/Cursos.class.php';
+    require_once 'Back-end/class/recursos/CategoriaRecurso.class.php';
+    require_once 'Back-end/class/recursos/AreaConhecimento.class.php';
 
     // Buscando o tipo do recurso
     $id_recurso = $_GET["id_recurso"];
