@@ -7,11 +7,6 @@ if (!$_GET["id_recurso"]) {
 } else {
     require_once "Back-end/class/conexao/Conexao.class.php";
     require_once "Back-end/class/recursos/Recursos.class.php";
-    require_once "Back-end/class/recursos/Ferramentas.class.php";
-    require_once "Back-end/class/recursos/Disciplinas.class.php";
-    require_once "Back-end/class/recursos/Cursos.class.php";
-    require_once "Back-end/class/recursos/CategoriaRecurso.class.php";
-    require_once "Back-end/class/recursos/AreaConhecimento.class.php";
     require_once "Back-end/class/recursos/Comentarios.class.php";
     // Buscando o tipo do recurso
     $id_recurso = $_GET["id_recurso"];
@@ -20,11 +15,9 @@ if (!$_GET["id_recurso"]) {
     $stm->bindValue(1, $id_recurso);
     $stm->execute();
     $tiporecurso = $stm->fetchAll(PDO::FETCH_OBJ);
-    if ($tiporecurso[0]->id_tiporecurso == 2) {
-        // header('location:recursoPA.php?id_recurso=' . $id_recurso);
-    }
+
     $recurso = new Recursos(id_recurso: $_GET["id_recurso"]);
-    $codigo = isset($_SESSION["id_usuario"]) ? $_SESSION["id_usuario"] : 0;
+    $codigo = $_SESSION["id_usuario"] ?? 0;
     $retorno = $recurso->buscarRecurso($codigo);
 
 
