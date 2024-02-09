@@ -6,7 +6,7 @@ if ($_GET['fav']) {
         $id_recurso = $_GET["id_recurso"];
         $id_usuario = $_GET["id_usuario"];
         $sql = "INSERT INTO recursos_salvos (id_recurso, id_usuario) VALUES (?, ?)";
-        $stm = $cnx->prepare($sql);
+        $stm = $conn->prepare($sql);
         $stm->bindValue(1, $id_recurso);
         $stm->bindValue(2, $id_usuario);
         $stm->execute();
@@ -16,7 +16,7 @@ if ($_GET['fav']) {
         $id_recurso = $_GET["id_recurso"];
         $id_usuario = $_GET["id_usuario"];
         $sql = "DELETE FROM recursos_salvos WHERE id_recurso = ? AND id_usuario = ?";
-        $stm = $cnx->prepare($sql);
+        $stm = $conn->prepare($sql);
         $stm->bindValue(1, $id_recurso);
         $stm->bindValue(2, $id_usuario);
         $stm->execute();

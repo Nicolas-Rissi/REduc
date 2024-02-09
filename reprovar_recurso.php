@@ -5,7 +5,7 @@ require_once("Back-end/functions/func_conexao.php");
 
 if ($_GET["id_recurso"]) {
     $sql = "SELECT video_path, artigo_path, img_recurso_path FROM recursos WHERE id_recurso = ?";
-    $consulta = $cnx->prepare($sql);
+    $consulta = $conn->prepare($sql);
     $consulta->bindValue(1, $_GET["id_recurso"]);
     $consulta->execute();
     $retorno = $consulta->fetchAll(PDO::FETCH_OBJ);

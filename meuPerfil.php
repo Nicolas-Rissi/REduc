@@ -254,7 +254,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $sql = "SELECT id_categoriaUsuario 'categoria'
               FROM users u 
               WHERE id_usuario = ?";
-    $categoria = $cnx->prepare($sql);
+    $categoria = $conn->prepare($sql);
     $categoria->bindValue(1, $_SESSION['id_usuario']);
     $categoria->execute();
     $resposta = $categoria->fetchAll(PDO::FETCH_OBJ);

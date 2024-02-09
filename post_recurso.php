@@ -91,7 +91,7 @@ if (!empty($_POST)) {
             if ($_POST['disciplina'] != "Selecione a disciplina") {
                 $disciplina = $_POST['disciplina'];
                 $sql = "INSERT INTO recurso_disciplina (id_recurso, id_disciplina) VALUES (?, ?)";
-                $insersao = $cnx->prepare($sql);
+                $insersao = $conn->prepare($sql);
                 $insersao->bindValue(1, $id_recurso);
                 $insersao->bindValue(2, $disciplina);
                 $insersao->execute();
@@ -100,7 +100,7 @@ if (!empty($_POST)) {
             if ($_POST['curso'] != "Selecione o curso") {
                 $curso = $_POST['curso'];
                 $sql = "INSERT INTO recurso_curso (id_recurso, id_curso) VALUES (?, ?)";
-                $insersao = $cnx->prepare($sql);
+                $insersao = $conn->prepare($sql);
                 $insersao->bindValue(1, $id_recurso);
                 $insersao->bindValue(2, $curso);
                 $insersao->execute();
@@ -196,7 +196,7 @@ if (!empty($_POST)) {
             if ($_POST['disciplina'] != "Selecione a disciplina") {
                 $disciplina = $_POST['disciplina'];
                 $sql = "INSERT INTO recurso_disciplina (id_recurso, id_disciplina) VALUES (?, ?)";
-                $insersao = $cnx->prepare($sql);
+                $insersao = $conn->prepare($sql);
                 $insersao->bindValue(1, $id_recurso);
                 $insersao->bindValue(2, $disciplina);
                 $insersao->execute();
@@ -205,7 +205,7 @@ if (!empty($_POST)) {
             if ($_POST['curso'] != "Selecione o curso") {
                 $curso = $_POST['curso'];
                 $sql = "INSERT INTO recurso_curso (id_recurso, id_curso) VALUES (?, ?)";
-                $insersao = $cnx->prepare($sql);
+                $insersao = $conn->prepare($sql);
                 $insersao->bindValue(1, $id_recurso);
                 $insersao->bindValue(2, $curso);
                 $insersao->execute();
@@ -282,7 +282,7 @@ if (!empty($_POST)) {
                         <option selected>Selecione a disciplina</option>
                         <?php
                         $sql = "SELECT * FROM disciplinas";
-                        $consulta = $cnx->prepare($sql);
+                        $consulta = $conn->prepare($sql);
                         $consulta->execute();
                         $resultado = $consulta->fetchAll(PDO::FETCH_OBJ);
                         foreach ($resultado as $disciplina) {
@@ -297,7 +297,7 @@ if (!empty($_POST)) {
                         <option selected>Selecione o curso</option>
                         <?php
                         $sql = "SELECT * FROM cursos";
-                        $consulta = $cnx->prepare($sql);
+                        $consulta = $conn->prepare($sql);
                         $consulta->execute();
                         $resultado = $consulta->fetchAll(PDO::FETCH_OBJ);
                         foreach ($resultado as $curso) {
@@ -313,7 +313,7 @@ if (!empty($_POST)) {
                         <option selected>Selecione a ferramenta</option>
                         <?php
                         $sql = "SELECT * FROM ferramentas";
-                        $consulta = $cnx->prepare($sql);
+                        $consulta = $conn->prepare($sql);
                         $consulta->execute();
                         $resultado = $consulta->fetchAll(PDO::FETCH_OBJ);
                         foreach ($resultado as $ferramenta) {
@@ -328,7 +328,7 @@ if (!empty($_POST)) {
                         <option selected>Selecione o Tipo</option>
                         <?php
                         $sql = "SELECT * FROM tiporecurso";
-                        $consulta = $cnx->prepare($sql);
+                        $consulta = $conn->prepare($sql);
                         $consulta->execute();
                         $resultado = $consulta->fetchAll(PDO::FETCH_OBJ);
                         foreach ($resultado as $tipo) {

@@ -17,7 +17,7 @@ if (isset($_POST)) {
         $novoUsername = $_POST['username'];
         // Testando existencia do novo Nome
         $sql = "SELECT nomeUsuario from users where nomeUsuario = ?";
-        $consulta = $cnx->prepare($sql);
+        $consulta = $conn->prepare($sql);
         $consulta->bindValue(1, $novoUsername);
         $consulta->execute();
         $teste = $consulta->fetchAll(PDO::FETCH_OBJ);
@@ -25,7 +25,7 @@ if (isset($_POST)) {
             $msg[1] = "Nome de usuário ja cadastrado!";
         } else {
             $sql = "UPDATE users SET nomeUsuario = ? WHERE id_usuario = ?";
-            $consulta = $cnx->prepare($sql);
+            $consulta = $conn->prepare($sql);
             $consulta->bindValue(1, $novoUsername);
             $consulta->bindValue(2, $_SESSION['id_usuario']);
             $consulta->execute();
@@ -37,7 +37,7 @@ if (isset($_POST)) {
     if (!empty($_POST['nome'])) {
         $novoNome = $_POST['nome'];
         $sql = "UPDATE users SET nome = ? WHERE id_usuario = ?";
-        $consulta = $cnx->prepare($sql);
+        $consulta = $conn->prepare($sql);
         $consulta->bindValue(1, $novoNome);
         $consulta->bindValue(2, $_SESSION['id_usuario']);
         $consulta->execute();
@@ -47,7 +47,7 @@ if (isset($_POST)) {
     if (!empty($_POST['sobrenome'])) {
         $novoSobrenome = $_POST['sobrenome'];
         $sql = "UPDATE users SET sobrenome = ? WHERE id_usuario = ?";
-        $consulta = $cnx->prepare($sql);
+        $consulta = $conn->prepare($sql);
         $consulta->bindValue(1, $novoSobrenome);
         $consulta->bindValue(2, $_SESSION['id_usuario']);
         $consulta->execute();
@@ -58,7 +58,7 @@ if (isset($_POST)) {
         $novoEmail = $_POST['email'];
         // Testando existencia do novo Nome
         $sql = "SELECT email from users where email = ?";
-        $consulta = $cnx->prepare($sql);
+        $consulta = $conn->prepare($sql);
         $consulta->bindValue(1, $novoEmail);
         $consulta->execute();
         $teste = $consulta->fetchAll(PDO::FETCH_OBJ);
@@ -66,7 +66,7 @@ if (isset($_POST)) {
             $msg[2] = "Email ja cadastrado!";
         } else {
             $sql = "UPDATE users SET email = ? WHERE id_usuario = ?";
-            $consulta = $cnx->prepare($sql);
+            $consulta = $conn->prepare($sql);
             $consulta->bindValue(1, $novoEmail);
             $consulta->bindValue(2, $_SESSION['id_usuario']);
             $consulta->execute();
@@ -78,7 +78,7 @@ if (isset($_POST)) {
     if (!empty($_POST['bio'])) {
         $novaBio = $_POST['bio'];
         $sql = "UPDATE users SET descricao = ? WHERE id_usuario = ?";
-        $consulta = $cnx->prepare($sql);
+        $consulta = $conn->prepare($sql);
         $consulta->bindValue(1, $novaBio);
         $consulta->bindValue(2, $_SESSION['id_usuario']);
         $consulta->execute();
@@ -88,7 +88,7 @@ if (isset($_POST)) {
     if (!empty($_POST['lattes'])) {
         $novoLattes = $_POST['lattes'];
         $sql = "UPDATE users SET link_lattes = ? WHERE id_usuario = ?";
-        $consulta = $cnx->prepare($sql);
+        $consulta = $conn->prepare($sql);
         $consulta->bindValue(1, $novoLattes);
         $consulta->bindValue(2, $_SESSION['id_usuario']);
         $consulta->execute();
@@ -98,7 +98,7 @@ if (isset($_POST)) {
     if (!empty($_POST['atuacao'])) {
         $novaAtuacao = $_POST['atuacao'];
         $sql = "UPDATE users SET area_atuacao = ? WHERE id_usuario = ?";
-        $consulta = $cnx->prepare($sql);
+        $consulta = $conn->prepare($sql);
         $consulta->bindValue(1, $novaAtuacao);
         $consulta->bindValue(2, $_SESSION['id_usuario']);
         $consulta->execute();
@@ -110,7 +110,7 @@ if (isset($_POST)) {
             if ($_POST['senha2'] == $_POST['senha']) {
                 $novaSenha = md5($_POST['senha']);
                 $sql = "UPDATE users SET senha = ? WHERE id_usuario = ?";
-                $consulta = $cnx->prepare($sql);
+                $consulta = $conn->prepare($sql);
                 $consulta->bindValue(1, $novaSenha);
                 $consulta->bindValue(2, $_SESSION['id_usuario']);
                 $consulta->execute();
@@ -128,7 +128,7 @@ if (isset($_POST)) {
         if ($_POST['pergunta'] != '0') {
             $novaPergunta = $_POST['pergunta'];
             $sql = "UPDATE users SET id_pergunta = ? WHERE id_usuario = ?";
-            $consulta = $cnx->prepare($sql);
+            $consulta = $conn->prepare($sql);
             $consulta->bindValue(1, $novaPergunta);
             $consulta->bindValue(2, $_SESSION['id_usuario']);
             $consulta->execute();
@@ -139,7 +139,7 @@ if (isset($_POST)) {
     if (!empty($_POST['resposta'])) {
         $novaResposta = $_POST['resposta'];
         $sql = "UPDATE users SET resposta_seguranca = ? WHERE id_usuario = ?";
-        $consulta = $cnx->prepare($sql);
+        $consulta = $conn->prepare($sql);
         $consulta->bindValue(1, $novaResposta);
         $consulta->bindValue(2, $_SESSION['id_usuario']);
         $consulta->execute();

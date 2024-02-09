@@ -5,6 +5,7 @@ if (!$_GET["id_recurso"]) {
     header('location:index.php');
     die();
 } else {
+    require_once "Back-end/functions/func_conexao.php";
     require_once "Back-end/class/conexao/Conexao.class.php";
     require_once "Back-end/class/recursos/Recursos.class.php";
     require_once "Back-end/class/recursos/Comentarios.class.php";
@@ -17,7 +18,7 @@ if (!$_GET["id_recurso"]) {
     // Buscando o tipo do recurso
     $id_recurso = $_GET["id_recurso"];
     $sql = "SELECT id_tiporecurso FROM recursos WHERE id_recurso = ?";
-    $stm = $this->db->prepare($sql);
+    $stm = $conn->prepare($sql);
     $stm->bindValue(1, $id_recurso);
     $stm->execute();
     $tiporecurso = $stm->fetchAll(PDO::FETCH_OBJ);

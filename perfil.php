@@ -86,7 +86,7 @@ $retorno = $usuario->VisitaUsuario($visitante);
             if ($visitante != 0) {
                 $id_usuario = $_SESSION["id_usuario"];
                 $sql = "SELECT * FROM seguir WHERE id_userseguindo = ? AND id_userseguido = ?";
-                $stm = $cnx->prepare($sql);
+                $stm = $conn->prepare($sql);
                 $stm->bindValue(1, $id_usuario);
                 $stm->bindValue(2, $usuario->getIdUsuario());
                 $stm->execute();

@@ -5,7 +5,7 @@ if ($_GET['ava']) {
     $id_recurso = $_GET["id_recurso"];
     $id_usuario = $_GET["id_usuario"];
     $sql = "SELECT * FROM avaliacao_recurso WHERE id_recurso = ? AND id_usuario = ?";
-    $stm = $cnx->prepare($sql);
+    $stm = $conn->prepare($sql);
     $stm->bindValue(1, $id_recurso);
     $stm->bindValue(2, $id_usuario);
     $stm->execute();
@@ -14,7 +14,7 @@ if ($_GET['ava']) {
     if (empty($retorno)) {
         $nota = $_GET['ava'];
         $sql = "INSERT INTO avaliacao_recurso (id_recurso, id_usuario, nota) VALUES (?, ?, ?)";
-        $stm = $cnx->prepare($sql);
+        $stm = $conn->prepare($sql);
         $stm->bindValue(1, $id_recurso);
         $stm->bindValue(2, $id_usuario);
         $stm->bindValue(3, $nota);
@@ -24,7 +24,7 @@ if ($_GET['ava']) {
         // UPDATE
         $nota = $_GET['ava'];
         $sql = "UPDATE avaliacao_recurso SET nota = ? WHERE id_recurso = ? AND id_usuario = ?";
-        $stm = $cnx->prepare($sql);
+        $stm = $conn->prepare($sql);
         $stm->bindValue(1, $nota);
         $stm->bindValue(2, $id_recurso);
         $stm->bindValue(3, $id_usuario);

@@ -1,11 +1,8 @@
 <?php
+require_once "Back-end/functions/func_conexao.php";
 require_once "Back-end/class/conexao/Conexao.class.php";
 require_once "Back-end/class/pa/PA.class.php";
 require_once "Back-end/class/pa/TiposPA.class.php";
-
-print_r($this->db);
-print_r($db);
-exit;
 
 if (!isset($_SESSION)) session_start();
 
@@ -150,7 +147,7 @@ if (!empty($_POST)) {
                     <option selected>Selecione o Tipo</option>
                     <?php
                     $sql = "SELECT * FROM tipos_pa";
-                    $consulta = $this->db->prepare($sql);
+                    $consulta = $conn->prepare($sql);
                     $consulta->execute();
                     $resultado = $consulta->fetchAll(PDO::FETCH_OBJ);
                     foreach ($resultado as $tipo) {

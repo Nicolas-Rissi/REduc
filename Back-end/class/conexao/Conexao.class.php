@@ -2,7 +2,8 @@
 
 class Conexao
 {
-    public function __construct(protected $db = null)
+    public $db;
+    public function __construct($db = null)
     {
         $this->db = new PDO("mysql:host=reduc-db.mysql.database.azure.com;dbname=reduc;", "reduc", "P#ssw0rdr");
         /*
