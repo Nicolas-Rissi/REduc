@@ -1,4 +1,5 @@
 <?php
+require_once "Back-end/functions/func_conexao.php";
 require_once "Back-end/class/recursosRequire.php";
 require_once "Back-end/class/usersRequire.php";
 
