@@ -2,7 +2,7 @@
 // require_once '..\conexao\Conexao.class.php';
 require_once 'Pergunta.class.php';
 require_once 'CategoriaUsuario.class.php';
-require_once 'instituicao.class.php';
+require_once 'Instituicao.class.php';
 require_once 'RedeSocial.class.php';
 
 class Usuario extends Conexao{
