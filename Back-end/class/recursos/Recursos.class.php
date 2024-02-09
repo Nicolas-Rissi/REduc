@@ -1,10 +1,5 @@
 <?php
 // require_once '../conexao/Conexao.class.php';
-require_once 'Disciplinas.class.php';
-require_once 'Ferramentas.class.php';
-require_once 'Cursos.class.php';
-require_once 'CategoriaRecurso.class.php';
-require_once 'AreaConhecimento.class.php';
 
 class Recursos extends Conexao
 {
