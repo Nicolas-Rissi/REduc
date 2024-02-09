@@ -14,6 +14,7 @@ if (!$_GET["id_recurso"]) {
     require_once 'Back-end/class/recursos/Cursos.class.php';
     require_once 'Back-end/class/recursos/CategoriaRecurso.class.php';
     require_once 'Back-end/class/recursos/AreaConhecimento.class.php';
+    require_once 'Back-end/class/users/Usuarios.class.php';
 
     // Buscando o tipo do recurso
     $id_recurso = $_GET["id_recurso"];
