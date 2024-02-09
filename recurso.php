@@ -127,7 +127,7 @@
                 if ($codigo != 0) {
                     echo
                     "<!-- Digite o comentário -->
-                    <form action='#' method='post' class='bg-light p-3 my-5 rounded d-flex align-items-center shadow'>
+                    <form action='recurso.php?id_recurso=$id_recurso' method='post' class='bg-light p-3 my-5 rounded d-flex align-items-center shadow'>
                         <textarea id='input-comentario' class='form-control' name='comentario' placeholder='Digite seu comentário...'></textarea>
                         <button type='submit' class='submit ms-2 rounded-circle bg-primary p-2'><i class='bi bi-send text-light'></i></button>
                     </form>
