@@ -3,6 +3,7 @@ require_once "Back-end/functions/func_conexao.php";
 require_once "Back-end/class/conexao/Conexao.class.php";
 require_once "Back-end/class/pa/PA.class.php";
 require_once "Back-end/class/pa/TiposPA.class.php";
+require_once 'Back-end/class/users/Usuarios.class.php';
 
 if (!isset($_SESSION)) session_start();
 
