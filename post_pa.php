@@ -3,6 +3,10 @@ require_once "Back-end/class/conexao/Conexao.class.php";
 require_once "Back-end/class/pa/PA.class.php";
 require_once "Back-end/class/pa/TiposPA.class.php";
 
+print_r($this->db);
+print_r($db);
+exit;
+
 if (!isset($_SESSION)) session_start();
 
 if (!$_SESSION['id_usuario']) {
