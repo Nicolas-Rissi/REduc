@@ -51,3 +51,21 @@ video {
     overflow-y: hidden;
 }
 
+
+/* Botao para inativar Recurso */
+
+#inativ_recurso{
+    display: flex;
+    justify-content: end;
+}
+
+#inativ_recurso a{
+    margin-top: 10px;
+    text-decoration: none;
+    background-color: red;
+    color: #fff;
+    width: 130px;
+    text-align: center;
+    padding: 5px;
+    border-radius: 5px;
+}

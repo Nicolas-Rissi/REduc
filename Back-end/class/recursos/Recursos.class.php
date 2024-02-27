@@ -284,5 +284,12 @@ class Recursos extends Conexao
 
         return $stm->fetchAll(PDO::FETCH_OBJ);
     }
+
+    public function inativarRecurso(){
+        $sql = "UPDATE recursos SET STATUS = 0 WHERE id_recurso = ?";
+        $stm = $this->db->prepare($sql);
+        $stm->bindValue(1, $this->id_recurso);
+        $stm->execute();
+    }
 }
 

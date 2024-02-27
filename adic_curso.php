@@ -10,13 +10,13 @@
       die();
   }
 
-  if ($_GET["curso"]) {
-    $curso = new Curso(curso: $_GET['curso']);
-    $cursoDAO = new CursoDAO();
-    $cursoDAO->inserirCurso($curso);
-    header("location: adm.php");
-    die();
-} else {
-    header("location: index.php");
-}
+    if ($_GET["curso"]) {
+        $curso = new Curso(curso: $_GET['curso']);
+        $cursoDAO = new CursoDAO();
+        $cursoDAO->inserirCurso($curso);
+        header("location: adm.php");
+        die();
+    } else {
+        header("location: index.php");
+    }
 ?>

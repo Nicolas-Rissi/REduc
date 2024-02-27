@@ -59,6 +59,11 @@ if (!$_GET["id_recurso"]) {
 <main>
     <div class="container">
         <?php
+        if (!empty($_SESSION["categoria"])) {
+            if ($_SESSION["categoria"] === 3) {
+                echo "<section id='inativ_recurso'><a href='inativ_recurso.php?id_recurso={$id_recurso}'>Inativar Recurso</a></section>";
+            }  
+        }
         if ($tiporecurso[0]->id_tiporecurso == 1) {
             echo
             "<video class='mt-5 mb-3'controls>
